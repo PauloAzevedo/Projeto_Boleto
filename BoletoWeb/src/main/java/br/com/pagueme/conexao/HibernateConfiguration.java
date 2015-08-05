@@ -10,9 +10,10 @@ import br.com.caelum.stella.boleto.Beneficiario;
 import br.com.caelum.stella.boleto.Boleto;
 import br.com.caelum.stella.boleto.Datas;
 import br.com.caelum.stella.boleto.Emissor;
-import br.com.caelum.stella.boleto.Endereco;
-import br.com.caelum.stella.boleto.Pagador;
 import br.com.caelum.stella.boleto.Sacado;
+import br.com.pagueme.beans.Endereco;
+import br.com.pagueme.beans.Pagador;
+import br.com.pagueme.beans.Usuario;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,10 +34,10 @@ public class HibernateConfiguration {
 
     private static AnnotationConfiguration cfg;
     private static SessionFactory sessionFactory;
-    private static String user;
-    private static String pass;
-    private static String base;
-    private static String host;
+    private static String user = "root";
+    private static String pass = "aluno";
+    private static String base = "boleto";
+    private static String host = "192.168.1.251:3306";
 
     public static Session openConnect() {
         if (cfg == null) {
@@ -57,7 +58,7 @@ public class HibernateConfiguration {
             cfg.addAnnotatedClass(Emissor.class);
             cfg.addAnnotatedClass(Pagador.class);
             cfg.addAnnotatedClass(Sacado.class);
-            
+            cfg.addAnnotatedClass(Usuario.class);
 
 
             sessionFactory = cfg.buildSessionFactory();

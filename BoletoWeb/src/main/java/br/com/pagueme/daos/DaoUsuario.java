@@ -5,7 +5,7 @@
  */
 package br.com.pagueme.daos;
 
-import br.com.pagueme.regranegocio.Usuario;
+import br.com.pagueme.beans.Usuario;
 
 /**
  *
