@@ -5,17 +5,21 @@
  */
 package br.com.pagueme.regranegocio;
 
+import br.com.caelum.stella.boleto.Endereco;
 import java.io.Serializable;
 
 /**
  *
  * @author ATENDIMENTOSACORTUS
  */
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
     
     private Integer id;
     private String senha;
     private String usuario;
+    private String nomeCompleto;
+    private String cnpjCPF;
+    private Endereco endereco;
     
     
     
@@ -42,6 +46,31 @@ public class Usuario implements Serializable{
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public String getCnpjCPF() {
+        return cnpjCPF;
+    }
+
+    public void setCnpjCPF(String cnpjCPF) {
+        this.cnpjCPF = cnpjCPF;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+    
     
     
     
