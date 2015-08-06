@@ -5,7 +5,9 @@
  */
 package br.com.pagueme.daos;
 
-import br.com.caelum.stella.boleto.Boleto;
+import br.com.pagueme.beans.Boleto;
+
+
 
 /**
  *

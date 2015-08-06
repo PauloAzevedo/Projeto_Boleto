@@ -152,7 +152,7 @@
                    
                      <div id="login">
                         <div class="form">
-                          <form action="GeradorBoletoHTML" method="post" name="form_login" id="form_login">
+                          <form action="CadastroUsuario" method="post" name="form_login" id="form_login">
                             <div class="login">
                               <input  type="text" maxlength="40" name="beneficiario" class="beneficiario" value="" />
                               <input  type="text" maxlength="40" name="agencia" class="agencia"  value=""/>

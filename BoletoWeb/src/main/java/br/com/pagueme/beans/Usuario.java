@@ -30,7 +30,9 @@ public class Usuario implements Serializable {
     @OneToOne
     private Endereco endereco;
     
-    
+    public static Usuario novoUsuario() {
+        return new Usuario();
+    }
     
     public Integer getId() {
         return id;
@@ -47,7 +49,7 @@ public class Usuario implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
+    
     public String getUsuario() {
         return usuario;
     }

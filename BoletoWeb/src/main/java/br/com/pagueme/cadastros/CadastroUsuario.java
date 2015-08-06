@@ -5,14 +5,12 @@
  */
 package br.com.pagueme.cadastros;
 
-import br.com.caelum.stella.boleto.Banco;
-import br.com.caelum.stella.boleto.Beneficiario;
-import br.com.caelum.stella.boleto.Boleto;
-import br.com.caelum.stella.boleto.Datas;
-import br.com.caelum.stella.boleto.Endereco;
-import br.com.caelum.stella.boleto.Pagador;
-import br.com.caelum.stella.boleto.bancos.BancoDoBrasil;
-import br.com.caelum.stella.boleto.transformer.GeradorDeBoletoHTML;
+
+import br.com.pagueme.beans.Endereco;
+import br.com.pagueme.beans.Usuario;
+import br.com.pagueme.conexao.TransactionManager;
+import br.com.pagueme.daos.DaoEndereco;
+import br.com.pagueme.daos.DaoUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -41,63 +39,39 @@ public class CadastroUsuario extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
-            String nomebeneficiario = request.getParameter("beneficiario");
-            String agencia = request.getParameter("agencia");
-            String digito = request.getParameter("digito");
+            String nomeCompleto = request.getParameter("nomeCompleto");
             String cpf = request.getParameter("cpf");
+            String senha = request.getParameter("senha");
+            String usuarioLogin = request.getParameter("usuario");            
             
-             Datas datas = Datas.novasDatas()
-                .comDocumento(1, 5, 2008)
-                .comProcessamento(1, 5, 2008)
-                .comVencimento(2, 5, 2008);  
+            Endereco endereco = new Endereco();
+            endereco.setLogradouro("Av das Empresas, 555");
+            endereco.setBairro("Bairro Grande");
+            endereco.setCep("01234-555");
+            endereco.setCidade("São Paulo");
+            endereco.setUf("SP");
+            
+            Usuario usuario = new Usuario();
+            usuario.setCnpjCPF("05.426.528.24");
+            usuario.setNomeCompleto("Fulano da Silva");
+            usuario.setSenha("asdiuqwueo");
+            usuario.setUsuario("paulovulture@hotmail.com");
+            usuario.setEndereco(endereco);
+            
+           if(cadastrarUsuario(usuario, endereco)){
+               System.out.println("OK");
+           }else{
+               System.out.println("Fail");
+           }
+            
 
-        Endereco enderecoBeneficiario = Endereco.novoEndereco()
-                .comLogradouro("Av das Empresas, 555")  
-                .comBairro("Bairro Grande")  
-                .comCep("01234-555")  
-                .comCidade("São Paulo")  
-                .comUf("SP");  
+//            Endereco enderecoBeneficiario = Endereco.novoEndereco()
+//                    .comLogradouro("Av das Empresas, 555")
+//                    .comBairro("Bairro Grande")
+//                    .comCep("01234-555")
+//                    .comCidade("São Paulo")
+//                    .comUf("SP");
 
-        //Quem emite o boleto
-        Beneficiario beneficiario = Beneficiario.novoBeneficiario()  
-                .comNomeBeneficiario(nomebeneficiario)  
-                .comAgencia(agencia).comDigitoAgencia(digito)  
-                .comCodigoBeneficiario("25296")  
-                .comDigitoCodigoBeneficiario("4")  
-                .comNumeroConvenio("1207113")  
-                .comCarteira("18")  
-                .comEndereco(enderecoBeneficiario)
-                .comNossoNumero("9000206");  
-
-        Endereco enderecoPagador = Endereco.novoEndereco()
-                .comLogradouro("Av dos testes, 111 apto 333")  
-                .comBairro("Bairro Teste")  
-                .comCep("01234-111")  
-                .comCidade("São Paulo")  
-                .comUf("SP");  
-
-        //Quem paga o boleto
-        Pagador pagador = Pagador.novoPagador()  
-                .comNome("Fulano da Silva")  
-                .comDocumento(cpf)
-                .comEndereco(enderecoPagador);
-
-        Banco banco = new BancoDoBrasil();  
-        
-
-        Boleto boleto = Boleto.novoBoleto()  
-                .comBanco(banco)  
-                .comDatas(datas)  
-                .comBeneficiario(beneficiario)  
-                .comPagador(pagador)  
-                .comValorBoleto("200.00")  
-                .comNumeroDoDocumento("1234")  
-                .comInstrucoes("Pagar em qualquer banco ate o vencimento, não aceitar depois do vencimento.")  
-                .comLocaisDePagamento("Bancos e casas lotéricas");  
-
-        GeradorDeBoletoHTML gerador = new GeradorDeBoletoHTML(boleto);
-        gerador.geraHTML(response.getWriter(), request);
-        
         } finally {
             out.close();
         }
@@ -141,5 +115,26 @@ public class CadastroUsuario extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private boolean cadastrarUsuario(Usuario usuario, Endereco endereco) {
+        TransactionManager.beginTransaction();
+        try {
+            DaoUsuario uDao = new DaoUsuario();
+            DaoEndereco eDao = new DaoEndereco();
+
+             
+            eDao.persistir(endereco);
+            uDao.persistir(usuario);
+          
+            TransactionManager.commit();
+            
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+            
+        
+        return true;
+    }
 
 }

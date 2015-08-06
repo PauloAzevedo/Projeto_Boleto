@@ -36,6 +36,10 @@ public class Endereco implements Serializable{
         this.cidade = cidade;
         this.uf = uf;
     }
+
+    public Endereco() {
+        
+    }
     
     
 
