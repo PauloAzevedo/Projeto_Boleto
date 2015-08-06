@@ -6,14 +6,15 @@
 package br.com.pagueme.conexao;
 
 import br.com.caelum.stella.boleto.Banco;
-import br.com.caelum.stella.boleto.Beneficiario;
-import br.com.caelum.stella.boleto.Boleto;
-import br.com.caelum.stella.boleto.Datas;
 import br.com.caelum.stella.boleto.Emissor;
 import br.com.caelum.stella.boleto.Sacado;
+import br.com.pagueme.beans.Beneficiario;
+import br.com.pagueme.beans.Boleto;
+import br.com.pagueme.beans.Datas;
 import br.com.pagueme.beans.Endereco;
 import br.com.pagueme.beans.Pagador;
 import br.com.pagueme.beans.Usuario;
+import br.com.pagueme.regranegocio.ListaBoletos;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -59,6 +60,7 @@ public class HibernateConfiguration {
             cfg.addAnnotatedClass(Pagador.class);
             cfg.addAnnotatedClass(Sacado.class);
             cfg.addAnnotatedClass(Usuario.class);
+            cfg.addAnnotatedClass(ListaBoletos.class);
 
 
             sessionFactory = cfg.buildSessionFactory();

@@ -5,8 +5,17 @@
  */
 package br.com.pagueme.regranegocio;
 
-import br.com.caelum.stella.boleto.Boleto;
+import br.com.pagueme.beans.Boleto;
+import br.com.pagueme.beans.Usuario;
+
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 
@@ -14,17 +23,22 @@ import java.util.List;
  *
  * @author ATENDIMENTOSACORTUS
  */
-public class ListaBoletos {
-    private Integer idLista;
+@Entity
+public class ListaBoletos implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @OneToMany
     private List<Boleto> boletos;
+    @OneToOne
     private Usuario usuario;
 
-    public Integer getIdLista() {
-        return idLista;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdLista(Integer idLista) {
-        this.idLista = idLista;
+    public void setIdLista(Integer id) {
+        this.id = id;
     }
 
     public List<Boleto> getBoletos() {
