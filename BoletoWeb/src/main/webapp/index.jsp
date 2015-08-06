@@ -152,11 +152,12 @@
                    
                      <div id="login">
                         <div class="form">
-                          <form action="./GeradorBoletoHTML" method="post" name="form_login" id="form_login">
+                          <form action="GeradorBoletoHTML" method="post" name="form_login" id="form_login">
                             <div class="login">
                               <input  type="text" maxlength="40" name="beneficiario" class="beneficiario" value="" />
                               <input  type="text" maxlength="40" name="agencia" class="agencia"  value=""/>
                               <input  type="text" maxlength="40" name="digito" class="digito"  value=""/>
+                              <input  type="text" maxlength="40" name="cpf" class="cpf"  value=""/>
                             </div>
                             <input type="submit" class="submit" value="GerarBoleto"/>
                           </form>

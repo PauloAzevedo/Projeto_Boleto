@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.pagueme.boletoweb;
+package br.com.pagueme.cadastros;
 
 import br.com.caelum.stella.boleto.Banco;
 import br.com.caelum.stella.boleto.Beneficiario;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ATENDIMENTOSACORTUS
  */
-public class GeradorBoletoHTML extends HttpServlet {
+public class CadastroUsuario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,6 +44,7 @@ public class GeradorBoletoHTML extends HttpServlet {
             String nomebeneficiario = request.getParameter("beneficiario");
             String agencia = request.getParameter("agencia");
             String digito = request.getParameter("digito");
+            String cpf = request.getParameter("cpf");
             
              Datas datas = Datas.novasDatas()
                 .comDocumento(1, 5, 2008)
@@ -78,10 +79,11 @@ public class GeradorBoletoHTML extends HttpServlet {
         //Quem paga o boleto
         Pagador pagador = Pagador.novoPagador()  
                 .comNome("Fulano da Silva")  
-                .comDocumento("111.222.333-12")
+                .comDocumento(cpf)
                 .comEndereco(enderecoPagador);
 
         Banco banco = new BancoDoBrasil();  
+        
 
         Boleto boleto = Boleto.novoBoleto()  
                 .comBanco(banco)  
@@ -90,8 +92,8 @@ public class GeradorBoletoHTML extends HttpServlet {
                 .comPagador(pagador)  
                 .comValorBoleto("200.00")  
                 .comNumeroDoDocumento("1234")  
-                .comInstrucoes("instrucao 1", "instrucao 2", "instrucao 3", "instrucao 4", "instrucao 5")  
-                .comLocaisDePagamento("local 1", "local 2");  
+                .comInstrucoes("Pagar em qualquer banco ate o vencimento, não aceitar depois do vencimento.")  
+                .comLocaisDePagamento("Bancos e casas lotéricas");  
 
         GeradorDeBoletoHTML gerador = new GeradorDeBoletoHTML(boleto);
         gerador.geraHTML(response.getWriter(), request);
@@ -140,5 +142,4 @@ public class GeradorBoletoHTML extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-   
 }

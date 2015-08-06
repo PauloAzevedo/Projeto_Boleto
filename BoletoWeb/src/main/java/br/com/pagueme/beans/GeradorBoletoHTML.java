@@ -1,9 +1,11 @@
+package br.com.pagueme.beans;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.pagueme.beans;
+
 
 import br.com.caelum.stella.boleto.Banco;
 import br.com.caelum.stella.boleto.Beneficiario;
@@ -44,6 +46,7 @@ public class GeradorBoletoHTML extends HttpServlet {
             String nomebeneficiario = request.getParameter("beneficiario");
             String agencia = request.getParameter("agencia");
             String digito = request.getParameter("digito");
+            String cpf = request.getParameter("cpf");
             
              Datas datas = Datas.novasDatas()
                 .comDocumento(1, 5, 2008)
@@ -78,7 +81,7 @@ public class GeradorBoletoHTML extends HttpServlet {
         //Quem paga o boleto
         Pagador pagador = Pagador.novoPagador()  
                 .comNome("Fulano da Silva")  
-                .comDocumento("111.222.333-12")
+                .comDocumento(cpf)
                 .comEndereco(enderecoPagador);
 
         Banco banco = new BancoDoBrasil();  
@@ -91,8 +94,8 @@ public class GeradorBoletoHTML extends HttpServlet {
                 .comPagador(pagador)  
                 .comValorBoleto("200.00")  
                 .comNumeroDoDocumento("1234")  
-                .comInstrucoes("pagar em qualquer banco ate o vencimento \n Não aceitar depois do vencimento.")  
-                .comLocaisDePagamento("Banco s e casas loteriacas");  
+                .comInstrucoes("Pagar em qualquer banco ate o vencimento, não aceitar depois do vencimento.")  
+                .comLocaisDePagamento("Bancos e casas lotéricas");  
 
         GeradorDeBoletoHTML gerador = new GeradorDeBoletoHTML(boleto);
         gerador.geraHTML(response.getWriter(), request);
