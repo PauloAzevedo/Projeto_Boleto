@@ -13,6 +13,7 @@ import br.com.pagueme.beans.Boleto;
 import br.com.pagueme.beans.Datas;
 import br.com.pagueme.beans.Endereco;
 import br.com.pagueme.beans.Pagador;
+import br.com.pagueme.beans.TipoUsuario;
 import br.com.pagueme.beans.Usuario;
 import br.com.pagueme.regranegocio.ListaBoletos;
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class HibernateConfiguration {
             cfg.addAnnotatedClass(Sacado.class);
             cfg.addAnnotatedClass(Usuario.class);
             cfg.addAnnotatedClass(ListaBoletos.class);
+            cfg.addAnnotatedClass(TipoUsuario.class);
 
 
             sessionFactory = cfg.buildSessionFactory();

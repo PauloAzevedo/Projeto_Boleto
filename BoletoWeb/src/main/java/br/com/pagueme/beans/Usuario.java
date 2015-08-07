@@ -29,6 +29,7 @@ public class Usuario implements Serializable {
     private String cnpjCPF;
     @OneToOne
     private Endereco endereco;
+    private TipoUsuario tipo;
     
     public static Usuario novoUsuario() {
         return new Usuario();
@@ -81,8 +82,13 @@ public class Usuario implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
-    
-    
+
+    public TipoUsuario getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
+    }
     
 }
